@@ -1,0 +1,18 @@
+# Fix for HTTP/2 download failures on unstable connections
+[http]
+# Force HTTP/1.1 — avoids HTTP/2 multiplexing failures
+multiplexing = false
+# Increase timeout for slow connections (seconds)
+timeout = 120
+
+[net]
+# Use git CLI for fetching (sometimes more reliable)
+git-fetch-with-cli = true
+# Retry count
+retry = 5
+
+[source.crates-io]
+replace-with = "tuna"
+
+[source.tuna]
+registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"

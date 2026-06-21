@@ -1,0 +1,174 @@
+/* ================================================================
+   PNG VTuber — Global Design System (Transparent / Frameless)
+   ================================================================ */
+
+:root {
+  /* Glass surface colors */
+  --glass:        rgba(12, 12, 20, 0.82);
+  --glass-light:  rgba(20, 20, 35, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-hover:  rgba(255, 255, 255, 0.06);
+
+  /* Accent palette */
+  --accent:        #7c3aed;
+  --accent-light:  #9d5cf5;
+  --accent-glow:   rgba(124, 58, 237, 0.4);
+  --accent-2:      #ec4899;
+
+  /* Text */
+  --text:          #f1f1f8;
+  --text-muted:    #8888aa;
+  --text-subtle:   #4a4a70;
+
+  /* Semantic */
+  --success:  #22c55e;
+  --warning:  #f59e0b;
+  --danger:   #ef4444;
+  --info:     #3b82f6;
+
+  /* Spacing */
+  --sp-xs: 4px;   --sp-sm: 8px;
+  --sp-md: 16px;  --sp-lg: 24px;
+
+  /* Radius */
+  --r-sm:   6px;  --r-md: 12px;
+  --r-lg:   18px; --r-full: 9999px;
+
+  /* Transitions */
+  --tx-fast:   0.12s cubic-bezier(.4,0,.2,1);
+  --tx-normal: 0.22s cubic-bezier(.4,0,.2,1);
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Outfit', 'Inter', sans-serif;
+}
+
+/* ── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+#root { width: 100%; height: 100%; }
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+
+/* ── Typography ─────────────────────────────────────────── */
+h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 700; }
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all var(--tx-fast);
+}
+
+/* ── Keyframes ──────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes blink-dot {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0.3; }
+}
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 var(--accent-glow); }
+  70%  { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Toggle switch ──────────────────────────────────────── */
+.toggle-switch {
+  position: relative; width: 42px; height: 22px; flex-shrink: 0;
+}
+.toggle-switch input { opacity:0; width:0; height:0; position:absolute; }
+.toggle-slider {
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: all var(--tx-normal);
+}
+.toggle-slider::before {
+  content:'';
+  position: absolute;
+  width: 14px; height: 14px;
+  left: 3px; top: 50%;
+  transform: translateY(-50%);
+  background: var(--text-muted);
+  border-radius: 50%;
+  transition: all var(--tx-normal);
+}
+.toggle-switch input:checked + .toggle-slider {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translate(20px,-50%);
+  background: #fff;
+}
+
+/* ── Range slider ───────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%; height: 3px;
+  background: rgba(255,255,255,0.1);
+  border: none; border-radius: 2px;
+  cursor: pointer; outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+  cursor: pointer;
+  transition: all var(--tx-fast);
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* ── Select ─────────────────────────────────────────────── */
+select {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-sm);
+  padding: 7px 30px 7px 10px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237e7ea8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  transition: border-color var(--tx-fast);
+}
+select:focus { border-color: var(--accent); }
