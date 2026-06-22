@@ -139,8 +139,13 @@ const App: FC = () => {
               title="Headless mode (H)" onClick={() => setIsHeadless(true)}>⬜</button>
             <button id="btn-minimize" className="win-btn"
               title="Minimize" onClick={handleMinimize}>─</button>
-            <button id="btn-hide-tray" className="win-btn"
-              title="Hide to tray" onClick={handleHide}>🔽</button>
+            <button id="btn-hide-tray" className="win-btn" title="Hide to tray" onClick={handleHide}>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+                <polyline points="7 11 12 16 17 11" />
+                <line x1="12" y1="16" x2="12" y2="3.5" />
+              </svg>
+            </button>
             <button id="btn-close" className="win-btn win-btn-close"
               title="Exit" onClick={handleClose}>✕</button>
           </div>
