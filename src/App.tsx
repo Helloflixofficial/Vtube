@@ -113,12 +113,26 @@ const App: FC = () => {
       {/* ── Custom Titlebar ─────────────────────────── */}
       {!isHeadless && (
         <header className="app-titlebar" id="app-titlebar" onMouseDown={handleStartDrag}>
-          <div className="titlebar-logo" onMouseDown={(e) => e.stopPropagation()}>
+          <div className="titlebar-logo" onMouseDown={(e) => e.stopPropagation()} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div className="titlebar-logo-icon">🎭</div>
+            {/* Status dot */}
+            <div
+              className={`status-pill ${statusClass}`}
+              title={statusText}
+              style={{ padding: 0, minWidth: 'auto', background: 'none', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'default' }}
+            >
+              <span className="status-dot" style={{ margin: 0, width: 8, height: 8 }} />
+            </div>
           </div>
 
           {/* Window control buttons */}
           <div className="titlebar-btns" onMouseDown={(e) => e.stopPropagation()}>
+            <button
+              id="btn-settings"
+              className={`win-btn ${settingsOpen ? 'active' : ''}`}
+              title="Settings (S)"
+              onClick={() => setSettingsOpen(!settingsOpen)}
+            >⚙️</button>
             <button id="btn-pin" className={`win-btn ${isAlwaysOnTop ? 'active' : ''}`}
               title="Always on Top" onClick={toggleAlwaysOnTop}>📌</button>
             <button id="btn-headless" className="win-btn"
@@ -167,29 +181,6 @@ const App: FC = () => {
             Fix
           </button>
         </div>
-      )}
-
-      {!isHeadless && (
-        <footer className="bottom-bar" id="bottom-bar" style={{ justifyContent: 'flex-end', background: 'transparent', borderTop: 'none', backdropFilter: 'none', WebkitBackdropFilter: 'none' }}>
-          {/* Action buttons */}
-          <div className="bottom-actions" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {/* Status light indicator */}
-            <div
-              className={`status-pill ${statusClass}`}
-              title={statusText}
-              style={{ padding: 0, minWidth: 'auto', background: 'none', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'default' }}
-            >
-              <span className="status-dot" style={{ margin: 0, width: 8, height: 8 }} />
-            </div>
-
-            <button
-              id="btn-settings"
-              className={`icon-btn ${settingsOpen ? 'active' : ''}`}
-              title="Settings (S)"
-              onClick={() => setSettingsOpen(!settingsOpen)}
-            >⚙️</button>
-          </div>
-        </footer>
       )}
 
       <SettingsPanel />

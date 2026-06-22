@@ -89,8 +89,17 @@ const AvatarDisplay: FC = () => {
   const scale = settings.avatarScale ?? 1.0;
   const displayExpression = speaking ? 'happy' : expression;
 
+  const handleWheel = (e: React.WheelEvent) => {
+    const direction = e.deltaY < 0 ? 1 : -1;
+    const step = 0.05;
+    const minScale = 0.1;
+    const maxScale = 5.0;
+    const newScale = Math.min(maxScale, Math.max(minScale, scale + direction * step));
+    updateSettings({ avatarScale: parseFloat(newScale.toFixed(2)) });
+  };
+
   return (
-    <div className="avatar-wrapper">
+    <div className="avatar-wrapper" onWheel={handleWheel}>
       {/* Hidden video element — MediaPipe reads frames from this */}
       <video
         ref={videoRef}
